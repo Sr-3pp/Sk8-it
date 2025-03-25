@@ -36,16 +36,10 @@ jobs:
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then
             echo "🚀 Deploying to Production..."
-            npx vercel --prod --confirm \
-              --token ${{ secrets.VERCEL_TOKEN }} \
-              --org ${{ secrets.VERCEL_ORG_ID }} \
-              --project ${{ secrets.VERCEL_PROJECT_ID }}
+            pnpx vercel --prod --confirm --token ${{ secrets.VERCEL_TOKEN }}
           else
             echo "🧪 Deploying to Preview..."
-            PREVIEW_URL=$(npx vercel --confirm \
-              --token ${{ secrets.VERCEL_TOKEN }} \
-              --org ${{ secrets.VERCEL_ORG_ID }} \
-              --project ${{ secrets.VERCEL_PROJECT_ID }} | tail -n1)
+            PREVIEW_URL=$(pnpx vercel --confirm --token ${{ secrets.VERCEL_TOKEN }} | tail -n1)
             echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
           fi
 
