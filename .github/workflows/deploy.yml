@@ -18,12 +18,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build project
-        run: npm run build  # Optional, if needed
+        run: pnpm run build
 
       - name: Deploy to Vercel
         id: vercel-deploy
@@ -36,11 +42,12 @@ jobs:
               --project ${{ secrets.VERCEL_PROJECT_ID }}
           else
             echo "🧪 Deploying to Preview..."
-            PREVIEW_URL=$(npx vercel --confirm --token ${{ secrets.VERCEL_TOKEN }} \
+            PREVIEW_URL=$(npx vercel --confirm \
+              --token ${{ secrets.VERCEL_TOKEN }} \
               --org ${{ secrets.VERCEL_ORG_ID }} \
               --project ${{ secrets.VERCEL_PROJECT_ID }} | tail -n1)
             echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
-        shell: bash
+          fi
 
       - name: Comment on PR with Preview URL
         if: github.event_name == 'pull_request' && github.ref_name != 'main'
