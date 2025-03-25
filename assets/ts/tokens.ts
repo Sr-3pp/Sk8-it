@@ -1,0 +1,13 @@
+export const breakpointSm = "'(min-width: 744px)'";
+export const breakpointMd = "'(min-width: 1024px)'";
+export const breakpointLg = "'(min-width: 1280px)'";
+export const breakpointXl = "'(min-width: 1440px)'";
+export const colorPrimaryBgLight = "#f5f5f5";
+export const colorPrimaryBgDark = "#202020";
+export const colorPrimaryTextLight = "#F0F0F0";
+export const colorPrimaryTextDark = "#f5f5f5";
+export const colorBoard = "#CAA472";
+export const limitSm = "680px";
+export const limitMd = "980px";
+export const limitLg = "1100px";
+export const limitXl = "1420px";

@@ -1,0 +1,30 @@
+@forward "fonts";
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: MavenPro, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: unit(16);
+  background: linear-gradient(225deg, $color-primary-bg-dark 70%, #000 100%);
+  color: $color-primary-text-light;
+}
+
+h1, h2, h3, h4, h5, h6{
+  font-family: KeaniaOne, 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 400;
+}
+
+h1{
+  font-size: unit(48);
+}
+h2{
+  font-size: unit(36);
+}
+h3{
+  font-size: unit(24);
+}
+h4{
+  font-size: unit(20);
+}

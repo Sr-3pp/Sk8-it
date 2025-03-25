@@ -1,0 +1,41 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.772.0",
+    "@libsql/client": "^0.15.0",
+    "@nuxt/content": "3.4.0",
+    "@nuxt/eslint": "1.2.0",
+    "@nuxt/icon": "1.11.0",
+    "@nuxt/image": "1.10.0",
+    "@nuxt/test-utils": "3.17.2",
+    "@nuxtjs/leaflet": "1.2.6",
+    "@pinia/nuxt": "^0.10.1",
+    "bcryptjs": "^3.0.2",
+    "drizzle-orm": "^0.41.0",
+    "eslint": "^9.0.0",
+    "json-to-var": "^1.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "normalize.css": "^8.0.1",
+    "nuxt": "^3.16.1",
+    "nuxt-swiper": "2.0.0",
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228",
+  "devDependencies": {
+    "@types/node": "^22.13.11",
+    "drizzle-kit": "^0.30.5",
+    "pug": "^3.0.3",
+    "sass": "^1.86.0"
+  }
+}
