@@ -1,0 +1,51 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build  # Optional, if needed
+
+      - name: Deploy to Vercel
+        id: vercel-deploy
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "🚀 Deploying to Production..."
+            npx vercel --prod --confirm \
+              --token ${{ secrets.VERCEL_TOKEN }} \
+              --org ${{ secrets.VERCEL_ORG_ID }} \
+              --project ${{ secrets.VERCEL_PROJECT_ID }}
+          else
+            echo "🧪 Deploying to Preview..."
+            PREVIEW_URL=$(npx vercel --confirm --token ${{ secrets.VERCEL_TOKEN }} \
+              --org ${{ secrets.VERCEL_ORG_ID }} \
+              --project ${{ secrets.VERCEL_PROJECT_ID }} | tail -n1)
+            echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Comment on PR with Preview URL
+        if: github.event_name == 'pull_request' && github.ref_name != 'main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} \
+            --body "✅ Preview ready: ${{ steps.vercel-deploy.outputs.preview_url }}"
