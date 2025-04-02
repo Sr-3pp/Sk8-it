@@ -6,10 +6,13 @@ const { isAuthenticated, logout, user } = toRefs(authStore)
 <template lang="pug">
 .top-bar
   Container
-    p(v-if="isAuthenticated") {{ user.name }}
-    NuxtLink(to="/panel" v-if="isAuthenticated") panel
-    button(@click="logout" v-if="isAuthenticated") logout
-    NuxtLink(to="/login" v-else) login
+    .top-bar__content
+      p(v-if="isAuthenticated") {{ user.name }}
+      NuxtLink(to="/panel" v-if="isAuthenticated") panel
+      button(@click="logout" v-if="isAuthenticated") logout
+      NuxtLink(to="/login" v-else) login
+
+      h4 Anunciate Aqui
 </template>
 
 <style scoped lang="scss">
@@ -18,9 +21,6 @@ const { isAuthenticated, logout, user } = toRefs(authStore)
   --color: #{$color-board};
   position: relative;
   z-index: 100;
-  display: flex;
-  justify-content: center;
-  gap: unit(20);
   background-color: $color-board;
   color: $color-primary-text-light;
   border-bottom-right-radius: unit(16);
@@ -48,8 +48,18 @@ const { isAuthenticated, logout, user } = toRefs(authStore)
 
   .container{
     margin: auto;
+    height: 100%;
+  }
+
+  &__content{
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    gap: unit(20);
+
+    h4{
+      margin: 0;
+    }
   }
 }
 </style>

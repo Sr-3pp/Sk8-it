@@ -1,10 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  experimental: {
+    viewTransition: true
+  },
   runtimeConfig: {
     public: {
       geoapifyApiKey: process.env.GEOAPIFY_TOKEN!,
       turso: {
-        databaseUrl: process.env.NUXT_TURSO_DATABASE_URL!,
+        databaseUrl: process.env.NODE_ENV === 'production' ? process.env.NUXT_TURSO_DATABASE_URL! : process.env.NUXT_TURSO_DEV_DATABASE_URL!,
         authToken: process.env.NUXT_TURSO_AUTH_TOKEN!
       },
       r2: {

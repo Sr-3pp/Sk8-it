@@ -7,11 +7,13 @@ const { data: products } = await getHighlights()
 <template lang="pug">
 section.products
   slot
-  Suspense
-    ul.products__list
-      li.products__list--item(v-for="product in products" :key="product._id")
-        ProductCard(v-bind="product")
-  NuxtLink(to="/products") Ver todos
+  Container(:withPadding="true" :isFull="true" :isFullSm="false") 
+    Suspense
+      ul.products__list(v-if="products.length")
+        li.products__list--item(v-for="product in products" :key="product._id")
+          ProductCard(v-bind="product")
+      h4(v-else) No products found
+    NuxtLink(to="/products") Ver todos
 </template>
 
 <style scoped lang="scss">

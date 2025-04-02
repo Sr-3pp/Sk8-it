@@ -2,7 +2,7 @@ import type { Contest } from '~/types/contest'
 
 export const useContest = () => {
   const getContests = () => $fetch('/api/contests')
-  const getContest = (id: string) => $fetch(`/api/contest/${id}`)
+  const getContest = (id: string) => $fetch(`/api/contests/${id}`)
   const deleteContest = (id: string) => $fetch('/api/contests', {
     method: 'DELETE',
     body: {

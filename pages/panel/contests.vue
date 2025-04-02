@@ -27,10 +27,19 @@ const openForm = () => {
 .contest
   Banner(picture="https://picsum.photos/1100/200")
   Container
-    h1 Contest List
+    h1 Contest
+    button(@click="openForm") Open modal
     ul
       li(v-for="(contest, i) in contests.data" :key="contests.id")
         ContestCard(v-bind="contest")
+        button(@click="currentContest = contest; contestDetail.toggleDialog()") detail
+        button(@click="deleteHandler(contest.id)") delete
+  Modal(ref="contestModal")
+    template(#body)
+      ContestForm(v-if="mapSw" @add:contest="contests.data.push($event)")
+  Modal(ref="contestDetail")
+    template(#body)
+      ContestDetail(:contest="currentContest")
 </template>
 
 <style lang="scss">

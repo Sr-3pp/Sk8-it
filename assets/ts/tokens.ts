@@ -1,7 +1,8 @@
-export const breakpointSm = "'(min-width: 744px)'";
-export const breakpointMd = "'(min-width: 1024px)'";
-export const breakpointLg = "'(min-width: 1280px)'";
-export const breakpointXl = "'(min-width: 1440px)'";
+export const breakpointXs = "(max-width: 743px)";
+export const breakpointSm = "(min-width: 744px)";
+export const breakpointMd = "(min-width: 1024px)";
+export const breakpointLg = "(min-width: 1280px)";
+export const breakpointXl = "(min-width: 1440px)";
 export const colorPrimaryBgLight = "#f5f5f5";
 export const colorPrimaryBgDark = "#202020";
 export const colorPrimaryTextLight = "#F0F0F0";

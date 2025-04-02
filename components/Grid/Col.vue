@@ -30,7 +30,7 @@ const colSizes = computed(() => {
 </script>
 
 <template lang="pug">
-.grid-col(:style="{...colSizes, flexGrow: props.grow ? 1 : 0}")
+.grid-col(:style="{...colSizes, flexGrow: grow ? 1 : 0}")
   slot
 </template>
 

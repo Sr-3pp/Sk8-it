@@ -1,8 +1,10 @@
 <script setup lang="ts">
-const { navigation: navigationData } = useNavigation();
-const { data: nav } = await navigationData;
-
-const navigation = nav.value?.filter((item) => item.path !== "/");
+defineProps({
+  navigation: {
+    type: Array,
+    default: () => []
+  }
+});
 
 const isActive = ref(false);
 const subActive = ref(-1);
@@ -16,15 +18,17 @@ header.navbar
         NuxtLink(to="/")
           Logo
       button.navbar__burger(@click="isActive = !isActive")
-        Icon(name="facebook")
+        Icon(name="burger-menu")
       ul.navbar__menu(:class="{ active: isActive }")
         li.navbar__menu__item.close
-          button.navbar__menu__item__button(@click="isActive = !isActive") X
+          button.navbar__menu__item__button(@click="isActive = !isActive")
+            Icon(name="close")
         li.navbar__menu__item(v-for="(item, i) in navigation" :class="{active: subActive == i}" :key="item.id")
           div.navbar__menu__item__content
             span.navbar__nav__link(v-if="'page' in item") {{ item.title }}
             NuxtLink.navbar__nav__link(v-else :to="item.path") {{ item.title }}
-            button.navbar__menu__item__button(@click="subActive == i ? subActive = -1 : subActive = i" v-if="item.children") V
+            button.navbar__menu__item__button(@click="subActive == i ? subActive = -1 : subActive = i" v-if="item.children")
+              Icon(name="chevron-down")
           ol.navbar__submenu(v-if="item.children" :class="{ active: subActive == i }")
             li.navbar__submenu__item(v-for="subitem in item.children" :key="subitem.id")
               NuxtLink.navbar__nav__link(:to="subitem.path") {{ subitem.title }}
@@ -44,10 +48,23 @@ header.navbar
   }
 
   &__burger {
+    width: unit(40);
+    height: unit(40);
     margin-left: auto;
     background-color: transparent;
     border: none;
     color: $color-board;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
 
     @media #{$breakpoint-sm} {
       display: none;
@@ -172,6 +189,17 @@ header.navbar
       justify-content: center;
 
       &.close {
+        button{
+          padding: 0;
+          width: unit(40);
+          height: unit(40);
+        }
+
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+        margin-left: auto;
         @media #{$breakpoint-sm} {
           display: none;
         }

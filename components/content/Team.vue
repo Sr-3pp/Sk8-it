@@ -22,9 +22,9 @@ onMounted(() => {
 section.team
   slot
   Grid
-    GridCol(size="1" sizeSm="1/2")
+    GridCol(size="1" sizeSm="1/2" :grow="true")
       iframe(width="100%" height="100%" src="https://www.youtube.com/embed/RxMKNwpV6h0?si=QcaFHMVxT8vY71gT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen)
-    GridCol(size="1" sizeSm="1/2" style="position: relative;")
+    GridCol(size="1" sizeSm="1/2" :grow="true" style="position: relative;")
       swiper-container.team__list(ref="teamSlider" :init="false")
         swiper-slide.team__list--item(v-for="(skater, i) in _skaters" :key="skater.title")
           SkaterCard(v-bind="skater.meta.skater" :test="i === 0")
@@ -51,7 +51,7 @@ section.team
     border: {
       style: solid;
       color: $color-board;
-      width: unit(2);
+      width: unit(4);
       radius: unit(16);
     }
     overflow: hidden;
