@@ -8,7 +8,8 @@ export default defineEventHandler(async (event) => {
       subcategory: true,
       boards: true,
       clothes: true,
+      retailer: true,
     },
   })
-  return product as Product
+  return product
 })

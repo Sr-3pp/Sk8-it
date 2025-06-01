@@ -3,14 +3,14 @@ export default defineEventHandler(async (event) => {
 
   const drizzle = useDrizzle()
 
-  const sales = await drizzle.query.Sale.findMany({
+  const retailer = await drizzle.query.Retailer.findMany({
     with:{
-      shipping: true,
-      outlet: true,
+      category: true,
+      products: true,
     },
     limit: Number(limit),
     offset: (Number(page) - 1) * Number(limit),
   })
 
-  return sales
+  return retailer
 })

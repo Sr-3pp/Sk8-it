@@ -9,10 +9,11 @@ export default defineEventHandler(async (event) => {
       subcategory: true,
       boards: true,
       clothes: true,
+      retailer: true,
     },
     limit: Number(limit),
     offset: (Number(page) - 1) * Number(limit),
   })
 
-  return products as Product[]
+  return products
 })

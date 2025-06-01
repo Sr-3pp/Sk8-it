@@ -8,6 +8,20 @@
       "when": 1748733319724,
       "tag": "0000_round_randall",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1748800874197,
+      "tag": "0001_serious_black_panther",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1748801024282,
+      "tag": "0002_mushy_outlaw_kid",
+      "breakpoints": true
     }
   ]
 }

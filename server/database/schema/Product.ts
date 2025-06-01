@@ -1,6 +1,6 @@
 import { sql, relations } from 'drizzle-orm'
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
-import { Category, Subcategory, Board, Clothe } from './index'
+import { Category, Subcategory, Board, Clothe, Retailer } from './index'
 
 export const Product = sqliteTable('products', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -11,6 +11,7 @@ export const Product = sqliteTable('products', {
   thumbs: text('thumbs'),
   categoryId: integer('category_id').references(() => Category.id),
   subcategoryId: integer('subcategory_id').references(() => Subcategory.id),
+  retailerId: integer('retailer_id').references(() => Retailer.id),
   createdAt: text('created_at')
     .notNull()
     .default(sql`(current_timestamp)`),
@@ -30,4 +31,8 @@ export const productsRelations = relations(Product, ({ many, one }) => ({
     fields: [Product.subcategoryId],
     references: [Subcategory.id],
   }),
+  retailer: one(Retailer, {
+    fields: [Product.retailerId],
+    references: [Retailer.id],
+  })
 }))
