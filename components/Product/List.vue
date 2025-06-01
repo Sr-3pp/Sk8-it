@@ -6,6 +6,7 @@ const deleting = ref(false)
 const { deleteProduct } = await useProduct()
 
 defineProps<{
+  editable?: boolean,
   products: (Product & {
     category?: { name: string },
     board?: { description: string, size: string, shape: string },
@@ -15,6 +16,10 @@ defineProps<{
 
 const emit = defineEmits(['product-detail', 'product-delete'])
 
+const getThumb = (thumbs: string) => {
+  return JSON.parse(thumbs)[0] || 'https://picsum.photos/300'
+}
+
 const handleDelete = async (id: number, idx: number) => {
   deleting.value = true
   await deleteProduct(id)
@@ -23,19 +28,14 @@ const handleDelete = async (id: number, idx: number) => {
 }
 </script>
 
-<template>
-  <ul>
-    <li v-for="(product, idx) in products" :key="product.id">
-      {{ product.id }} - {{ product.name }}
-      <button @click="$emit('product-detail', product)">
-        Detail
-      </button>
+<template lang="pug">
+ul
+  li(v-for="(product, idx) in products" :key="product.id")
+    NuxtImg(:src="getThumb(product.thumbs)" :alt="product.name" width="100" height="100")
+    | {{ product.sku }} | {{ product.name }}
+    button(v-if="editable" @click="$emit('product-detail', product)") Detail
 
-      <button :disabled="deleting" @click="handleDelete(product.id, idx)">
-        delete
-      </button>
-    </li>
-  </ul>
+    button(v-if="editable" :disabled="deleting" @click="handleDelete(product.id, idx)") delete
 </template>
 
 <style scoped></style>

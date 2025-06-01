@@ -23,8 +23,6 @@ const { data } = await useAsyncData(async () => {
   }
 })
 
-console.log(data.value)
-
 const _gallery = ref(data.value?._gallery)
 const categories = ref(data.value?.categories)
 

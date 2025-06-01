@@ -1,5 +1,6 @@
 ---
 title: "sr3pp"
+sku: "sr3ppSk8it"
 skater: {
   slug: 'sr3pp',
   name: "Martin Ruiz",

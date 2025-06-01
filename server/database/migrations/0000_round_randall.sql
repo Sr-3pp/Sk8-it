@@ -4,9 +4,22 @@ CREATE TABLE `boards` (
 	`description` text,
 	`size` numeric,
 	`shape` text,
-	`stock` integer,
-	`timestamp` text DEFAULT (current_timestamp) NOT NULL,
+	`stock` integer DEFAULT 0 NOT NULL,
+	`created_at` text DEFAULT (current_timestamp) NOT NULL,
+	`updated_at` text DEFAULT (current_timestamp) NOT NULL,
 	FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `blog_posts` (
+	`id` text PRIMARY KEY NOT NULL,
+	`banner` text NOT NULL,
+	`title` text NOT NULL,
+	`slug` text NOT NULL,
+	`author_id` integer,
+	`tags` text DEFAULT '[]',
+	`content` text NOT NULL,
+	`timestamp` text DEFAULT (current_timestamp) NOT NULL,
+	FOREIGN KEY (`author_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE TABLE `categories` (
@@ -21,7 +34,7 @@ CREATE TABLE `clothes` (
 	`description` text,
 	`size` numeric,
 	`color` text,
-	`stock` integer,
+	`stock` integer DEFAULT 0 NOT NULL,
 	`timestamp` text DEFAULT (current_timestamp) NOT NULL,
 	FOREIGN KEY (`product_id`) REFERENCES `products`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -55,17 +68,20 @@ CREATE TABLE `outlets` (
 --> statement-breakpoint
 CREATE TABLE `products` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`sku` text NOT NULL,
 	`name` text NOT NULL,
 	`cost` integer DEFAULT 0,
 	`price` integer NOT NULL,
 	`thumbs` text,
 	`category_id` integer,
 	`subcategory_id` integer,
-	`timestamp` text DEFAULT (current_timestamp) NOT NULL,
+	`created_at` text DEFAULT (current_timestamp) NOT NULL,
+	`updated_at` text DEFAULT (current_timestamp) NOT NULL,
 	FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
+CREATE UNIQUE INDEX `products_sku_unique` ON `products` (`sku`);--> statement-breakpoint
 CREATE TABLE `participants` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`sku` text NOT NULL,
@@ -78,10 +94,12 @@ CREATE TABLE `participants` (
 CREATE TABLE `sales` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`outlet_id` integer,
+	`seller_id` text,
 	`shipping_id` integer,
-	`total` text NOT NULL,
+	`total` real NOT NULL,
 	`products` text NOT NULL,
-	`timestamp` text DEFAULT (current_timestamp) NOT NULL,
+	`created_at` text DEFAULT (current_timestamp) NOT NULL,
+	`updated_at` text DEFAULT (current_timestamp) NOT NULL,
 	FOREIGN KEY (`outlet_id`) REFERENCES `outlets`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`shipping_id`) REFERENCES `shippings`(`id`) ON UPDATE no action ON DELETE no action
 );
@@ -167,6 +185,18 @@ CREATE TABLE `subcategories` (
 	`name` text NOT NULL,
 	`timestamp` text DEFAULT (current_timestamp) NOT NULL,
 	FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE TABLE `trick-menu` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`spot` text NOT NULL,
+	`description` text NOT NULL,
+	`difficulty` integer NOT NULL,
+	`price` integer NOT NULL,
+	`status` text DEFAULT 'active' NOT NULL,
+	`skater` text,
+	`timestamp` text DEFAULT (current_timestamp) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `users` (

@@ -1,4 +1,5 @@
 interface Skater {
+  id: number,
   slug: string,
   name: string,
   age: number,

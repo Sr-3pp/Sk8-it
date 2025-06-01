@@ -3,7 +3,7 @@ import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 
 export const Shipping = sqliteTable('shippings', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  address: text('address').notNull(),
+  address: text('address', { mode: 'json' }).notNull(),
   name: text('name').notNull(),
   phone: text('phone'),
   email: text('email'),

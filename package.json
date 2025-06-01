@@ -25,6 +25,7 @@
     "eslint": "^9.0.0",
     "json-to-var": "^1.1.2",
     "jsonwebtoken": "^9.0.2",
+    "marked": "^15.0.8",
     "normalize.css": "^8.0.1",
     "nuxt": "^3.16.1",
     "nuxt-swiper": "2.0.0",

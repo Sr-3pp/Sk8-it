@@ -16,6 +16,12 @@ export default defineNuxtConfig({
         accessKey: process.env.R2_ACCESS_KEY,
         secretKey: process.env.R2_SECRET_KEY,
         bucket:  process.env.NODE_ENV === 'production' ? process.env.R2_BUCKET_NAME : process.env.R2_DEV_BUCKET_NAME
+      },
+      github: {
+        token: process.env.GITHUB_TOKEN,
+        repo: process.env.GITHUB_REPO,
+        branch: process.env.NODE_ENV == 'production' ? process.env.GITHUB_BRANCH : process.env.GITHUB_BRANCH_DEV,
+        owner: process.env.GITHUB_OWNER,
       }
     }
   },

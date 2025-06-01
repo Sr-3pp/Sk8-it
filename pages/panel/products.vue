@@ -4,38 +4,40 @@ import ProductForm from '~/components/Product/Form.vue'
 
 const productForm = ref<InstanceType<typeof ProductForm> | null>(null)
 
-const { categories } = await useCategory()
+const { getCategories } = await useCategory()
+const { data: categories } = await getCategories()
 
-const { getSubcategories, subcategories } = await useSubcategory(
-  (categories.value[0] as Category).id,
-)
+const { getSubcategories } = await useSubcategory()
+const { data: subcategories } = await getSubcategories(categories.value![0]?.id || 0)
 
 const { saveProduct, getProducts } = await useProduct()
 
-const { data } = await getProducts()
-const products = ref<Product[]>(data as Product[])
-
+const { data: products } = await getProducts()
 const handleSaveProduct = async (product: Product) => {
   const newProduct = await saveProduct(product)
-  products.value.push(newProduct)
+  products.value!.push(newProduct)
 }
 </script>
 
-<template>
-  <div>
-    <ProductForm
+<template lang="pug">
+.panel-products
+    ProductForm(
       ref="productForm"
       :categories="categories"
       :subcategories="subcategories"
       @get-subcategories="getSubcategories"
       @add-product="handleSaveProduct"
-    />
-    <ProductList
-      :products="products as Product[]"
-      @product-detail="productForm!.openForm($event)"
-      @product-delete="products.splice($event, 1)"
-    />
-  </div>
+    )
+    ProductList(
+      :products="products"
+      @product-detail="productForm.openForm($event)"
+      @product-delete="products.data.splice($event, 1)"
+    )
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.panel-products{
+  padding-top: 10rem;
+}
+
+</style>

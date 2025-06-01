@@ -3,10 +3,10 @@ const { params } = useRoute()
 const { id } = params
 
 const { getProduct } = useProduct()
-const product = await getProduct(Number(id))
+const { data: product } = await getProduct(Number(id))
 
 const thumbs = computed(() => {
-  return JSON.parse(product.thumbs)
+  return JSON.parse(product.value!.thumbs as string)
 })
 
 const { toCurrency } = useCurrency()

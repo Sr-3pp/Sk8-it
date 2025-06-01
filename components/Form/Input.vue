@@ -6,12 +6,20 @@ defineProps<{
   placeholder?: string,
   info?: string,
   error?: string,
+  max?: number
 }>()
 </script>
 
 <template lang="pug">
 label.sk-input
-  component.sk-input__input(:is="type == 'textarea' ? 'textarea' : 'input'" :class="{'textarea': type == 'textarea'}" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)")
+  component.sk-input__input(
+    :is="type == 'textarea' ? 'textarea' : 'input'"
+    :class="{'textarea': type == 'textarea'}"
+    :type="type" :value="modelValue"
+    @input="$emit('update:modelValue', type === 'number' ? Number($event.target.value) : $event.target.value)"
+    :placeholder="placeholder"
+    :max="max"
+  )
   span.sk-input__label
     | {{ label }}
   span.sk-input__message(v-if="error || info")
@@ -24,6 +32,7 @@ label.sk-input
   flex-direction: column;
   position: relative;
   margin-top: unit(10);
+  max-width: unit(250);
   &__input{
     height: unit(40);
     padding-left: unit(16);
@@ -32,6 +41,7 @@ label.sk-input
     border: unit(2) solid $color-board;
     border-radius: unit(100);
     font-size: unit(16);
+    background-color: $color-primary-bg-light;
 
     &.textarea{
       min-height: unit(120);

@@ -4,16 +4,17 @@ import { Category, Subcategory, Board, Clothe } from './index'
 
 export const Product = sqliteTable('products', {
   id: integer('id').primaryKey({ autoIncrement: true }),
+  sku: text('sku').notNull().unique(),
   name: text('name').notNull(),
   cost: integer('cost').default(0),
   price: integer('price').notNull(),
   thumbs: text('thumbs'),
   categoryId: integer('category_id').references(() => Category.id),
   subcategoryId: integer('subcategory_id').references(() => Subcategory.id),
-  createdAt: text('timestamp')
+  createdAt: text('created_at')
     .notNull()
     .default(sql`(current_timestamp)`),
-  updatedAt: text('timestamp')
+  updatedAt: text('updated_at')
     .notNull()
     .default(sql`(current_timestamp)`),
 })

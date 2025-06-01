@@ -3,7 +3,5 @@ export default defineEventHandler(async () => {
     .select()
     .from(tables.Subcategory)
     .all()
-  return {
-    data: subcategories,
-  }
+  return subcategories as Subcategory[]
 })

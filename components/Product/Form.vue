@@ -10,6 +10,8 @@ defineProps<{
 
 const emit = defineEmits(['get-subcategories', 'add-product', 'delete-model'])
 
+const { generateSku } = useSku()
+
 const gallery = ref<InstanceType<typeof Gallery> | null>(null)
 const productForm = ref<InstanceType<typeof Modal> | null>(null)
 
@@ -53,6 +55,7 @@ const boardShapes = ['street', 'Old School', 'Cruiser', 'Fish', 'Popsicle']
 const clotheSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
 const handleProduct = async () => {
+  const sku = await generateSku(newProduct.value.name, newProduct.value.categoryId, newProduct.value.subcategoryId)
   const productPayload = {
     name: newProduct.value.name,
     cost: newProduct.value.cost,
@@ -60,6 +63,7 @@ const handleProduct = async () => {
     thumbs: JSON.stringify(newProduct.value.thumbs),
     categoryId: newProduct.value.categoryId,
     subcategoryId: newProduct.value.subcategoryId,
+    sku
   }
 
   const model: Array<{ [key: string]: string | number, }> | undefined = newProduct.value.categoryId === 1

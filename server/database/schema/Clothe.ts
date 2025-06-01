@@ -8,7 +8,7 @@ export const Clothe = sqliteTable('clothes', {
   description: text('description'),
   size: numeric('size'),
   color: text('color'),
-  stock: integer('stock'),
+  stock: integer('stock').notNull().default(0),
   createdAt: text('timestamp')
     .notNull()
     .default(sql`(current_timestamp)`),

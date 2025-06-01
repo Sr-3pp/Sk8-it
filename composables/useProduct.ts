@@ -1,9 +1,14 @@
 import type { Product } from '~~/server/utils/drizzle'
 
 export const useProduct = () => {
-  const getProducts = () => $fetch('/api/products')
-  const getProduct = (id: number) => $fetch('/api/products/' + id)
-  const getHighlights = () => $fetch('/api/products?limit=3')
+  const getProducts = () => useAsyncData<Product[]>('products', () => $fetch<Product[]>('/api/products'))
+  const getProduct = (id: number) => useAsyncData<Product>(`product-${id}`, () => $fetch<Product>('/api/products/' + id))
+  const getHighlights = () => useAsyncData<Product[]>('highlights', () => $fetch<Product[]>('/api/products/highlights'))
+
+  const getProductCollection = (skus: string[]) =>  $fetch('/api/products/collection', {
+    method: 'POST',
+    body: { skus }
+  })
 
   const deleteProduct = async (productId: number) => {
     const deletedProduct = await $fetch(`/api/products/${productId}`, {
@@ -47,5 +52,6 @@ export const useProduct = () => {
     deleteModel,
     updateProduct,
     getProduct,
+    getProductCollection
   }
 }

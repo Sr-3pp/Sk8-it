@@ -7,7 +7,5 @@ export default defineEventHandler(async (event) => {
     .where(eq(tables.Subcategory.categoryId, category))
     .all()
 
-  return {
-    data: subcategories,
-  }
+  return subcategories as Subcategory[]
 })

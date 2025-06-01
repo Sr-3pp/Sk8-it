@@ -1,5 +1,5 @@
 export const useSkater = () => {
-  const getSkaters = () => useAsyncData(async () => {
+  const getSkaters = () => useAsyncData('skaters', async () => {
     const collections = await queryCollection('content').all()
     return collections.filter((collection: { path: string }) => collection.path.includes('team/'))
   })

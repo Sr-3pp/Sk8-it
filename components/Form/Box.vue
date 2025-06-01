@@ -3,6 +3,7 @@ const props = defineProps<{
   label: string
   type: string
   value: string
+  name: string
   modelValue: string[],
   placeholder?: string,
   info?: string,
@@ -12,15 +13,25 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 const updateValue = (e: InputEvent) => {
+  if(props.type === 'radio'){
+    emit('update:modelValue', [(e.target as HTMLInputElement).value])
+    return
+  }
+
   const newValue = [...props.modelValue]
-  newValue.push(e.target.value)
+
+  if (newValue.includes((e.target as HTMLInputElement).value)) {
+    newValue.splice(newValue.indexOf((e.target as HTMLInputElement).value), 1)
+  }else{
+    newValue.push((e.target as HTMLInputElement).value)
+  }
   emit('update:modelValue', newValue)
 }
 </script>
 
 <template lang="pug">
 label.sk-input-box
-  input.sk-input-box__input(:type="type" :value="value" @change="updateValue")
+  input.sk-input-box__input(:type="type" :value="value" @change="updateValue" :name="name")
   span.sk-input-box__checkmark
   span.sk-input-box__label
     | {{ label }}

@@ -8,11 +8,11 @@ export const Board = sqliteTable('boards', {
   description: text('description'),
   size: numeric('size'),
   shape: text('shape'),
-  stock: integer('stock'),
-  createdAt: text('timestamp')
+  stock: integer('stock').notNull().default(0),
+  createdAt: text('created_at')
     .notNull()
     .default(sql`(current_timestamp)`),
-  updatedAt: text('timestamp')
+  updatedAt: text('updated_at')
     .notNull()
     .default(sql`(current_timestamp)`),
 })

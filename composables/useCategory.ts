@@ -1,10 +1,17 @@
 import type { Category } from '~~/server/utils/drizzle'
 
-export const useCategory = async () => {
-  const { data } = await $fetch('/api/categories')
-  const categories = ref(data)
+export const useCategory = () => {
+  const getCategories = () => useAsyncData<Category[]>('categories', () => $fetch('/api/categories'))
+
   const addCategory = async (category: Category) => {
-    categories.value.push(category)
+    const { data } = await $fetch('/api/categories', {
+      method: 'POST',
+      body: category,
+    })
+
+    if (data) {
+      return data as Category
+    }
   }
 
   const deleteCategory = async ({ id, idx }: { [key: string]: number }) => {
@@ -14,13 +21,16 @@ export const useCategory = async () => {
     })
 
     if (data) {
-      categories.value.splice(idx as number, 1)
+      return true;
     }
   }
 
+  const getCategoryById = (id: number) => useAsyncData<Category>(`category-${id}`, () => $fetch(`/api/categories/${id}`))
+
   return {
-    categories,
+    getCategories,
     addCategory,
     deleteCategory,
+    getCategoryById,
   }
 }

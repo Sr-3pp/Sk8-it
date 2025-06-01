@@ -1,12 +1,15 @@
 import type { Subcategory } from '~~/server/utils/drizzle'
 
-export const useSubcategory = async (categoryId: number) => {
-  const { data } = await $fetch<{ data: Subcategory[] }>(
-    '/api/subcategories/' + categoryId,
-  )
-  const subcategories = ref(data)
+export const useSubcategory = () => {
   const addSubcategory = async (category: Subcategory) => {
-    ;(subcategories.value as Subcategory[]).push(category)
+    const { data } = await $fetch('/api/subcategories', {
+      method: 'POST',
+      body: category,
+    })
+
+    if (data) {
+      return data as Subcategory
+    }
   }
 
   const deleteSubcategory = async ({ id, idx }: { [key: string]: number }) => {
@@ -16,17 +19,13 @@ export const useSubcategory = async (categoryId: number) => {
     })
 
     if (data) {
-      subcategories.value.splice(idx as number, 1)
+      return true
     }
   }
 
-  const getSubcategories = async (categoryId: number) => {
-    const { data } = await $fetch(`/api/subcategories/${categoryId}`)
-    subcategories.value = data
-  }
+  const getSubcategories = (categoryId: string | number) => useAsyncData<Subcategory[]>('subcategories', () => $fetch(`/api/subcategories/${categoryId}`))
 
   return {
-    subcategories,
     addSubcategory,
     deleteSubcategory,
     getSubcategories,

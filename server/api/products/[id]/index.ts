@@ -10,5 +10,5 @@ export default defineEventHandler(async (event) => {
       clothes: true,
     },
   })
-  return product
+  return product as Product
 })

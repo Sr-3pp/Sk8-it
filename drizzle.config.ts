@@ -5,7 +5,7 @@ export default defineConfig({
   schema: 'server/database/schema/index.ts',
   out: 'server/database/migrations',
   dbCredentials: {
-    url: process.env.NUXT_TURSO_DATABASE_URL!,
+    url: process.env.NODE_ENV === 'production' ? process.env.NUXT_TURSO_DATABASE_URL! : process.env.NUXT_TURSO_DEV_DATABASE_URL!,
     authToken: process.env.NUXT_TURSO_AUTH_TOKEN!,
   },
 })

@@ -5,6 +5,9 @@ const props = defineProps({
     default: () => []
   }
 });
+
+const isActive = ref(false);
+const subActive = ref(-1);
 </script>
 
 <template lang="pug">

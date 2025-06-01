@@ -72,6 +72,7 @@ defineExpose({
     position: relative;
     border-radius: unit(20);
     background-color: var(--bg);
+    width: 100%;
     max-width: 80vw;
     max-height: 80vh;
   }

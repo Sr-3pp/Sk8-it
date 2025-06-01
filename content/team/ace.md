@@ -1,5 +1,6 @@
 ---
 title: "Ace Leo"
+sku: "aceLeoSk8it"
 skater: {
   slug: 'ace',
   name: "Ace Leo",

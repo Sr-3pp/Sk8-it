@@ -1,5 +1,6 @@
 ---
 title: "Timmy Martinez"
+sku: "timmySk8it"
 skater: {
   slug: 'timmy',
   name: "timmy Martinez",

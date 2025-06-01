@@ -1,22 +1,33 @@
 <script setup lang="ts">
+const props = defineProps<{
+  config?: {}
+}>();
 const slider = ref()
-const swiper = useSwiper(slider, {
-  effect: 'creative',
-  loop: true,
-  autoplay: {
-    delay: 5000,
-  },
-  creativeEffect: {
-    prev: {
-      shadow: true,
-      translate: [0, 0, -400],
+
+const config = computed(() => {
+  return {
+    ...{
+      effect: 'creative',
+      loop: true,
+      autoplay: {
+        delay: 5000,
+      },
+      creativeEffect: {
+        prev: {
+          shadow: true,
+          translate: [0, 0, -400],
+        },
+        next: {
+          shadow: true,
+          translate: [0, 0, -400],
+        },
+      },
     },
-    next: {
-      shadow: true,
-      translate: [0, 0, -400],
-    },
-  },
+    ...props.config || {},
+  }
 })
+
+const swiper = useSwiper(slider, config.value)
 
 </script>
 
